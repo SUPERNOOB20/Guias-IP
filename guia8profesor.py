@@ -59,7 +59,6 @@ def buscarElMaximo (p: LifoQueue[int]) -> int:
 
 # Ejercicio 16:
 
-# random.shuffle()
 from numpy import random
 from queue import Queue
 
