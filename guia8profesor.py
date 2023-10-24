@@ -42,7 +42,7 @@ def copiar(p: LifoQueue[int]) -> LifoQueue[int]:
     while not p.empty():
         elements.append(p.get())
     p_copy: LifoQueue[int] = LifoQueue()
-    for i in range(len(elements) - 1, -1, -1)   # Recorrre la lista "elements" en sentido inverso.
+    for i in range(len(elements) - 1, -1, -1):       # Recorrre la lista "elements" en sentido inverso.
         p.put(elements[i])
         p_copy.put(elements[i])
     return p_copy
