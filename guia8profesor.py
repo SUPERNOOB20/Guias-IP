@@ -1,3 +1,5 @@
+# Ejercicio 2:
+
 def es_un_comentario(line: str) -> bool:
     for c in line:
         if c!= " ":
