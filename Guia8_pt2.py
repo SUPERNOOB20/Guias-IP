@@ -51,7 +51,7 @@ clientes_cola.put(("primero2", 2, True, True))
 clientes_cola.put(("primero1", 5,True, True))
 clientes_cola.put(("primero3", 4, False, True))
 
-print(a_clientes(clientes_cola))
+# print(a_clientes(clientes_cola))
 
 
 
@@ -71,13 +71,13 @@ def cantidadDeApariciones(e: str, s: list) -> int:
         s2.remove(e)
     return contadorApariciones
 
-
+"""
 # TEST CASES:
 print(esta_bien_balanceada("1 + (2 * 3 - (20 / 5))"))        # Debería dar True
 print(esta_bien_balanceada("10 * ( 1 + ( 2 * (-1)))"))       # Debería dar True
 print(esta_bien_balanceada("1 + ) 2 * 3 ( ()"))              # Debería dar False
 print(esta_bien_balanceada("1 + ()"))                        # Debería dar False. Tip: probar a implementar algo que cuando encuentre "(" y después ")", halla un "isnumeric()" en el medio
-
+"""
 
 
 
@@ -107,7 +107,7 @@ def promedio_estudiante2(legajo: str, LU: str) -> float:
     notas_alumnos: list = []
     notas_del_alumno: list = []
     for linea in file_notas_alumnos:
-        print("la linea es", linea)
+        # print("la linea es", linea)
         spliteada = linea.strip("\n")
         spliteada = spliteada.split(", ")
         # while '' in spliteada:
@@ -121,8 +121,8 @@ def promedio_estudiante2(legajo: str, LU: str) -> float:
 
 
 
-promedio_estudiante1("notas.csv", "937/21")
-promedio_estudiante2("notas.csv", "937/21")
+# promedio_estudiante1("notas.csv", "937/21")
+# promedio_estudiante2("notas.csv", "937/21")
 
 
 
@@ -136,20 +136,29 @@ promedio_estudiante2("notas.csv", "937/21")
 
 from queue import LifoQueue as Pila
 
-p = Pila()              # Inicia la pila (constructor)
-p.put(1)                # Apilar
-elemento = p.get()      # Desapilar
-p.empty()               # Devuelve True si la pila "p" está vacia. Si no, devuelve False.
+p: Pila = Pila()              # Inicia la pila (constructor)
+p.put(1)                      # Apilar
+elemento = p.get()            # Desapilar
+p.empty()                     # Devuelve True si la pila "p" está vacia. Si no, devuelve False.
 
 
 
 
 
 # Ejercicio 8:
+from random import randint
+
+
 def generaNumerosRandom(n: int, desde: int, hasta: int) -> Pila:         # Donde todos los parámetros de entrada son de tipo *** IN ***
-    return
+    pilaOutput: Pila = Pila()
+    while n > 0:
+        numeroAleatorio = randint(desde, hasta)
+        pilaOutput.put(numeroAleatorio)
+        n -= 1
+    print(list(pilaOutput.queue))
+    return pilaOutput
 
-
+print(generaNumerosRandom(10,1,100))
 
 
 # Ejercicio 9:
@@ -167,17 +176,42 @@ def buscar_el_maximo(p: Pila) -> int:                                    # Donde
     while not p.empty():
         numerito = p.get()
         lista_de_la_pila.append(numerito)
-    print(str(lista_de_la_pila))
+    # print(str(lista_de_la_pila))
     lista_de_la_pila_COPIA: list = lista_de_la_pila.copy()
     for elemento in lista_de_la_pila_COPIA:
         p.put(elemento)
-    print(list(p.queue))
+    # print(list(p.queue))
+    maximo = max(lista_de_la_pila)
     return maximo
 
 
-pilaEj10 = Pila()
+
+
+"""
+### TEST CASE:
+
+pilaEj10: Pila = Pila()
 p.put(7)
 p.put(2)
 p.put(8)
 p.put(7)
-buscar_el_maximo(p)
+print(buscar_el_maximo(p))
+# Debería devolver ** 8 **: funciona bien :]
+"""
+
+
+
+
+##### COLAS #####
+
+from queue import Queue as Cola
+
+c: Cola = Cola()             # Inicia la cola (constructor)
+c.put(1)                     # Encolar
+elemento = c.get()           # Desencolar ()
+c.empty()                    # Devuelve True si la pila "p" está vacia. Si no, devuelve False.
+
+
+
+
+# Ejercicio 13:
