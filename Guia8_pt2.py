@@ -81,7 +81,7 @@ print(esta_bien_balanceada("1 + ()"))                        # Debería dar Fals
 
 
 # Ejercicio 7:
-def promedio_estudiante(legajo: str, LU: str) -> float:
+def promedio_estudiante1(legajo: str, LU: str) -> float:
     file_notas_alumnos: str = open("notas.csv", "r")
     notas_alumnos: list = []
     notas_del_alumno: list = []
@@ -98,4 +98,26 @@ def promedio_estudiante(legajo: str, LU: str) -> float:
     print("las notas del alumno", LU, "son", str(notas_del_alumno))         
     return
 
-promedio_estudiante("notas.csv", "937/21")
+
+
+def promedio_estudiante2(legajo: str, LU: str) -> float:
+    file_notas_alumnos: str = open("notas.csv", "r")
+    notas_alumnos: list = []
+    notas_del_alumno: list = []
+    for linea in file_notas_alumnos:
+        print("la linea es", linea)
+        spliteada = linea.strip("\n")
+        spliteada = spliteada.split(", ")
+        # while '' in spliteada:
+            # spliteada.remove('')
+        notas_alumnos.append(spliteada[len(spliteada) - 1])
+        if LU in linea:
+            notas_del_alumno.append(spliteada[len(spliteada) - 1])
+    print("las notas son", str(notas_alumnos))
+    print("las notas del alumno", LU, "son", str(notas_del_alumno))         
+    return
+
+
+
+promedio_estudiante1("notas.csv", "937/21")
+promedio_estudiante2("notas.csv", "937/21")
