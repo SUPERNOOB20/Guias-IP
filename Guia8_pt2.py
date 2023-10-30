@@ -3,7 +3,7 @@
 # chr(byte)
 
 
-# Ejercicio 7:
+# Ejercicio banco:
 
 # str ---> Nombre y Apellido
 # int ---> DNI
@@ -80,6 +80,8 @@ print(esta_bien_balanceada("1 + ()"))                        # Debería dar Fals
 
 
 
+
+
 # Ejercicio 7:
 def promedio_estudiante1(legajo: str, LU: str) -> float:
     file_notas_alumnos: str = open("notas.csv", "r")
@@ -121,3 +123,61 @@ def promedio_estudiante2(legajo: str, LU: str) -> float:
 
 promedio_estudiante1("notas.csv", "937/21")
 promedio_estudiante2("notas.csv", "937/21")
+
+
+
+##### Pilas #####
+
+## Recuerdo:
+# FIFO queue == Queue     == Cola
+# LIFO queue == LIFOQueue == Pila
+
+
+
+from queue import LifoQueue as Pila
+
+p = Pila()              # Inicia la pila (constructor)
+p.put(1)                # Apilar
+elemento = p.get()      # Desapilar
+p.empty()               # Devuelve True si la pila "p" está vacia. Si no, devuelve False.
+
+
+
+
+
+# Ejercicio 8:
+def generaNumerosRandom(n: int, desde: int, hasta: int) -> Pila:         # Donde todos los parámetros de entrada son de tipo *** IN ***
+    return
+
+
+
+
+# Ejercicio 9:
+def cantidad_elementos(p: Pila) -> int:                                  # Donde "p" es de tipo *** IN ***
+    return
+
+
+
+# Ejercicio 10:
+
+
+def buscar_el_maximo(p: Pila) -> int:                                    # Donde "p" es de tipo *** IN ***
+    lista_de_la_pila: list = []
+    maximo: int = 72727
+    while not p.empty():
+        numerito = p.get()
+        lista_de_la_pila.append(numerito)
+    print(str(lista_de_la_pila))
+    lista_de_la_pila_COPIA: list = lista_de_la_pila.copy()
+    for elemento in lista_de_la_pila_COPIA:
+        p.put(elemento)
+    print(list(p.queue))
+    return maximo
+
+
+pilaEj10 = Pila()
+p.put(7)
+p.put(2)
+p.put(8)
+p.put(7)
+buscar_el_maximo(p)
