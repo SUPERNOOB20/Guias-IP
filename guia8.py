@@ -1,4 +1,4 @@
-# Ejercicio 1.1:
+## Ejercicio 1.1:
 def contar_lineas(nombre_archivo: str) -> int:      # Donde "nombre_archivo" es de tipo *** IN ***.
     archivo = open(nombre_archivo, "r")
     cantidad_lineas: int = 0
@@ -7,7 +7,7 @@ def contar_lineas(nombre_archivo: str) -> int:      # Donde "nombre_archivo" es 
     return cantidad_lineas
 
 
-# Ejercicio 1.2:
+## Ejercicio 1.2:
 
 def existe_palabra(palabra: str, nombre_archivo: str) -> bool:      # "palabra" y "nombre_archivo" son de tipo *** IN ***.
     archivo = open(nombre_archivo, "r")
@@ -19,7 +19,7 @@ def existe_palabra(palabra: str, nombre_archivo: str) -> bool:      # "palabra" 
 print(existe_palabra("trigo", "tres_tristes_tigres.txt"))
 print(existe_palabra("tirgo", "tres_tristes_tigres.txt"))
 
-# Ejercicio 1.3:
+## Ejercicio 1.3:
 def cantidad_apariciones(nombre_archivo: str, palabra: str) -> int:                  # "nombre_archivo" y "palabra" son de tipo *** IN ***.
     archivo = open(nombre_archivo, "r")
     archivo_copia = archivo
@@ -34,7 +34,7 @@ def cantidad_apariciones(nombre_archivo: str, palabra: str) -> int:             
 print(cantidad_apariciones("tres_tristes_tigres.txt", "tigres"))
 
 
-# Ejercicio 2:
+### Ejercicio 2:
 """
 def clonarSinComentarios(nombre_archivo: str):      # Devuelve nombre_archivo pero SIN las líneas comentadas.
     archivo = open(nombre_archivo, r)
@@ -102,7 +102,7 @@ clonarSinComentarios("ejemploComentado2.txt")
 
 # print(clonarSinComentarios("ejemploComentado2.txt"))     <--- NO hacer esto.
 
-# Ejercicio 3:
+### Ejercicio 3:
 from queue import LifoQueue
 
 def reverso(nombre_archivo: str) -> str:
@@ -126,7 +126,7 @@ def reverso(nombre_archivo: str) -> str:
 
 print(reverso("tres_tristes_tigres.txt"))
 
-# Ejercicio 4:
+### Ejercicio 4:
 def agregaAlFinal(nombre_archivo: str, frase: str) -> str:
     archivo = open(nombre_archivo, "w")
     for linea in range(len(archivo) - 1, len(archivo), 1):
@@ -134,7 +134,7 @@ def agregaAlFinal(nombre_archivo: str, frase: str) -> str:
     archivo.close()
     return archivo
 
-# Ejercicio 5:
+### Ejercicio 5:
 def agregaAlPrincipio(nombre_archivo: str, frase: str) -> str:
     archivo = open(nombre_archivo, "w")
     for linea in range(0, 1, 1):
@@ -142,16 +142,18 @@ def agregaAlPrincipio(nombre_archivo: str, frase: str) -> str:
     archivo.close()
     return archivo
 
-# Ejercicio 6
+### Ejercicio 6
 def binarioLegible(archivo_binario: str) -> list:
     archivo = open(archivo_binario, "b")
     archivo.close()
     return
 # chr(byte)
 
-# Ejercicio 7:
-def promedio_estudiante1(legajo: str, LU: str) -> float:
-    file_notas_alumnos: str = open("notas.csv", "r")
+### Ejercicio 7:
+
+# FORMA 1:
+def promedio_estudiante1(archivo_notas: str, LU: str) -> float:
+    file_notas_alumnos: str = open(archivo_notas, "r")
     notas_alumnos: list = []
     notas_del_alumno: list = []
     for linea in file_notas_alumnos:
@@ -168,9 +170,9 @@ def promedio_estudiante1(legajo: str, LU: str) -> float:
     return
 
 
-
-def promedio_estudiante2(legajo: str, LU: str) -> float:
-    file_notas_alumnos: str = open("notas.csv", "r")
+# FORMA 2:
+def promedio_estudiante2(archivo_notas: str, LU: str) -> float:
+    file_notas_alumnos: str = open(archivo_notas, "r")
     notas_alumnos: list = []
     notas_del_alumno: list = []
     for linea in file_notas_alumnos:
@@ -212,7 +214,7 @@ p.empty()                     # Devuelve True si la pila "p" está vacia. Si no,
 
 
 
-# Ejercicio 8:
+### Ejercicio 8:
 from random import randint
 
 
@@ -228,7 +230,7 @@ def generaNumerosRandom(n: int, desde: int, hasta: int) -> Pila:         # Donde
 print(generaNumerosRandom(10,1,100))
 
 
-# Ejercicio 9:
+### Ejercicio 9:
 def cantidad_elementos(p: Pila) -> int:                                  # Donde "p" es de tipo *** IN ***
     return
 
@@ -306,7 +308,7 @@ print(buscar_el_maximo(p))
 
 
 
-# Ejercicio 11:
+### Ejercicio 11:
 def esta_bien_balanceada(s: str) -> bool:
     brackets: list = []
     for i in s:
@@ -344,12 +346,12 @@ c.empty()                    # Devuelve True si la pila "p" está vacia. Si no, 
 
 
 
-# Ejercicio 13:
+### Ejercicio 13:
 
 
 
 
-# Ejercicio 16.1:
+## Ejercicio 16.1:
 import numpy as np
 from queue import Queue     # Va a ser una FIFO Queue
 
@@ -374,7 +376,7 @@ q = armarSecuenciaDeBingo()
 # print(q.get())
 
 
-# Ejercicio 16.2:
+## Ejercicio 16.2:
 """
 # NO RESPETA la especificación:
 def jugarCartonDeBingo(carton: list, bolillero: Queue) -> int:
@@ -432,7 +434,7 @@ print(bolillero)
 
 
 
-### Ejercicio 18.2:
+## Ejercicio 18.2:
 
 # str ---> Nombre y Apellido
 # int ---> DNI
@@ -512,7 +514,7 @@ def agruparPorLongitud(nombre_archivo: str) -> dict:
 
 
 
-# Ejercicio 21:
+### Ejercicio 21:
 
 def laPalabraMasFrecuente(nombre_archivo: str) -> str:
     archivo = open(nombre_archivo,"r", encoding = "utf8")
