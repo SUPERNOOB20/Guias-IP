@@ -314,7 +314,7 @@ def esta_bien_balanceada(s: str) -> bool:
     for i in s:
         if i == "(" or i == ")":
             brackets.append(i)
-    return (brackets[0] == "(") and (cantidadDeApariciones("(", brackets) == cantidadDeApariciones("(", brackets)) and (brackets[(len(brackets)) - 1] == ")")
+    return (brackets[0] == "(") and (cantidadDeApariciones("(", brackets) == cantidadDeApariciones("(", brackets)) and (brackets[(len(brackets)) - 1] == ")") and (not "()" in s)
 
 def cantidadDeApariciones(e: str, s: list) -> int:
     contadorApariciones: int = 0
@@ -329,8 +329,12 @@ def cantidadDeApariciones(e: str, s: list) -> int:
 print(esta_bien_balanceada("1 + (2 * 3 - (20 / 5))"))        # Debería dar True
 print(esta_bien_balanceada("10 * ( 1 + ( 2 * (-1)))"))       # Debería dar True
 print(esta_bien_balanceada("1 + ) 2 * 3 ( ()"))              # Debería dar False
-print(esta_bien_balanceada("1 + ()"))                        # Debería dar False. Tip: probar a implementar algo que cuando encuentre "(" y después ")", halla un "isnumeric()" en el medio
+print(esta_bien_balanceada("1 + ()"))                        # Debería dar False.                   NO ----> Tip: probar a implementar algo que cuando encuentre "(" y después ")", halla un "isnumeric()" en el medio
+print(esta_bien_balanceada("1 + (())"))                      # Debería dar False
+print(esta_bien_balanceada("1 + (()())"))                    # Debería dar False
 """
+
+
 
 
 
