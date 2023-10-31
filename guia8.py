@@ -144,10 +144,30 @@ def agregaAlPrincipio(nombre_archivo: str, frase: str) -> str:
 
 ### Ejercicio 6
 def binarioLegible(archivo_binario: str) -> list:
-    archivo = open(archivo_binario, "b")
+    archivo = open(archivo_binario, mode='rb')
+    leer_archivo = archivo.read()
+    # print(leer_archivo)
+    # print(len(leer_archivo))
+    palabrasLegibles: list = []
+    palabraLegible: str = ""
+    for byte in leer_archivo:
+        caracter_legible = chr(byte)
+        # print(caracter_legible)
+        if caracter_legible.isalnum() or caracter_legible in [" ", "_"]:
+            palabraLegible += caracter_legible
+        else:
+            if len(palabraLegible) >= 5:     # O "while"; es lo mismo.
+                palabrasLegibles.append(palabraLegible)
+            palabraLegible = ""
     archivo.close()
-    return
-# chr(byte)
+    return palabrasLegibles
+
+# Test cases (Cuidado - ¡tardan un ratito!):
+"""
+print(binarioLegible("Last Remote ~ Type A Personality.mp3"))
+print(binarioLegible("nolemretaw umieR.jpg"))
+print(binarioLegible("BillyTheBard11th - Excuse My Rudeness, But Could You Please RIP [Metal Cover] - copia.zip"))
+"""
 
 ### Ejercicio 7:
 
