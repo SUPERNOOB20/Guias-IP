@@ -16,8 +16,10 @@ def existe_palabra(palabra: str, nombre_archivo: str) -> bool:      # "palabra" 
             return True
     return False
 
-print(existe_palabra("trigo", "tres_tristes_tigres.txt"))
-print(existe_palabra("tirgo", "tres_tristes_tigres.txt"))
+
+# Test cases:
+# print(existe_palabra("trigo", "tres_tristes_tigres.txt"))
+# print(existe_palabra("tirgo", "tres_tristes_tigres.txt"))
 
 ## Ejercicio 1.3:
 def cantidad_apariciones(nombre_archivo: str, palabra: str) -> int:                  # "nombre_archivo" y "palabra" son de tipo *** IN ***.
@@ -31,7 +33,7 @@ def cantidad_apariciones(nombre_archivo: str, palabra: str) -> int:             
     return cantidad_apariciones
 
 # Test case:
-print(cantidad_apariciones("tres_tristes_tigres.txt", "tigres"))
+# print(cantidad_apariciones("tres_tristes_tigres.txt", "tigres"))
 
 
 ### Ejercicio 2:
@@ -97,13 +99,13 @@ def es_un_comentario(line: str) -> bool:
 
 
 # clonarSinComentarios("ejemploComentado.txt")
-clonarSinComentarios("ejemploComentado2.txt")
+# clonarSinComentarios("ejemploComentado2.txt")
 
 
 # print(clonarSinComentarios("ejemploComentado2.txt"))     <--- NO hacer esto.
 
 ### Ejercicio 3:
-from queue import LifoQueue
+from queue import LifoQueue as Pila
 
 def reverso(nombre_archivo: str) -> str:
     archivo = open(nombre_archivo, "r")
@@ -111,12 +113,12 @@ def reverso(nombre_archivo: str) -> str:
     nombre_archivo_copia: str = "reverso.txt"
     archivo_copia = open(nombre_archivo_copia, "w")
 
-    cola: LifoQueue = LifoQueue()
+    pila: Pila = Pila()
     for linea in archivo:
-        cola.put(linea)
+        pila.put(linea)
 
-    while cola.qsize() > 0:
-        elemento_cola = cola.get()
+    while pila.qsize() > 0:
+        elemento_cola = pila.get()
         archivo_copia.write(elemento_cola)
 
     archivo.close()
@@ -124,7 +126,8 @@ def reverso(nombre_archivo: str) -> str:
 
     return archivo_copia
 
-print(reverso("tres_tristes_tigres.txt"))
+# Test case:
+# print(reverso("tres_tristes_tigres.txt"))
 
 ### Ejercicio 4:
 def agregaAlFinal(nombre_archivo: str, frase: str) -> str:
@@ -162,18 +165,17 @@ def binarioLegible(archivo_binario: str) -> list:
     archivo.close()
     return palabrasLegibles
 
-# Test cases (Cuidado - ¡tardan un ratito!):
 """
+# Test cases (Cuidado - ¡tardan un ratito!):
 print(binarioLegible("Last Remote ~ Type A Personality.mp3"))
 print(binarioLegible("nolemretaw umieR.jpg"))
 print(binarioLegible("BillyTheBard11th - Excuse My Rudeness, But Could You Please RIP [Metal Cover] - copia.zip"))
 """
 
-### Ejercicio 7:
 
-# FORMA 1:
-def promedio_estudiante1(archivo_notas: str, LU: str) -> float:
-    file_notas_alumnos: str = open(archivo_notas, "r")
+### Ejercicio 7:
+def promedio_estudiante1(legajo: str, LU: str) -> float:
+    file_notas_alumnos: str = open("notas.csv", "r")
     notas_alumnos: list = []
     notas_del_alumno: list = []
     for linea in file_notas_alumnos:
@@ -190,7 +192,7 @@ def promedio_estudiante1(archivo_notas: str, LU: str) -> float:
     return
 
 
-# FORMA 2:
+
 def promedio_estudiante2(archivo_notas: str, LU: str) -> float:
     file_notas_alumnos: str = open(archivo_notas, "r")
     notas_alumnos: list = []
@@ -223,7 +225,7 @@ def promedio_estudiante2(archivo_notas: str, LU: str) -> float:
 
 
 
-from queue import LifoQueue as Pila
+# from queue import LifoQueue as Pila
 
 p: Pila = Pila()              # Inicia la pila (constructor)
 p.put(1)                      # Apilar
@@ -247,19 +249,42 @@ def generaNumerosRandom(n: int, desde: int, hasta: int) -> Pila:         # Donde
     print(list(pilaOutput.queue))
     return pilaOutput
 
-print(generaNumerosRandom(10,1,100))
+# Test case:
+# print(generaNumerosRandom(10,1,100))
 
 
 ### Ejercicio 9:
 def cantidad_elementos(p: Pila) -> int:                                  # Donde "p" es de tipo *** IN ***
-    return
+    lista_apilada: list = []
+    while not p.empty():
+        lista_apilada.append(p.get())
+    res = len(lista_apilada)
+    lista_apilada.reverse()
+    while len(lista_apilada) > 0:
+        p.put(lista_apilada[0])
+        lista_apilada.remove(lista_apilada[0])
+    return res
+
+
+# Test case - pila [1,2,3,1000]:
+"""
+pilaEj19: Pila = Pila()
+pilaEj19.put(1)
+pilaEj19.put(2)
+pilaEj19.put(3)
+pilaEj19.put(1000)
+
+cantidad_elementos(pilaEj19)
+print(list(pilaEj19.queue), cantidad_elementos(pilaEj19), list(pilaEj19.queue))
+"""
 
 
 
 ### Ejercicio 10:
 
-# Forma 1 (la mía):
-def buscar_el_maximo1(p: Pila) -> int:                                    # Donde "p" es de tipo *** IN ***
+"""
+# Forma 1 (la mía) (funciona solo con "p" como *** INOUT *** :c):
+def buscarElMaximo1(p: Pila) -> int:                                    # Donde "p" es de tipo *** IN ***
     lista_de_la_pila: list = []
     maximo: int = 72727
     while not p.empty():
@@ -271,13 +296,21 @@ def buscar_el_maximo1(p: Pila) -> int:                                    # Dond
         p.put(elemento)
     # print(list(p.queue))
     maximo = max(lista_de_la_pila)
-    return maximo
 
+    reviertePila: Pila = Pila()
+    while not p.empty():
+        print("PIJa")
+        elemento = p.get()
+        reviertePila.put(elemento)
+    p = reviertePila
+
+    return maximo
+"""
 
 
 # Forma 2 (del profe):
-def buscarElMaximo2 (p: LifoQueue) -> int:
-    p_copia : LifoQueue() = copiaQueue(p)
+def buscarElMaximo2 (p: Pila) -> int:
+    p_copia: Pila = copiaPilaProfe(p)
     while not p_copia.empty():        # p.qsize() > 1:
         a = p_copia.get()
         if p_copia.empty():
@@ -290,31 +323,48 @@ def buscarElMaximo2 (p: LifoQueue) -> int:
     
     return p_copia.get()
 
-def copiaQueue(p: LifoQueue) -> LifoQueue:
+def copiaPilaProfe(p: Pila) -> Pila:        # !!!!!!
     elements: [int] = []
     while not p.empty():
         elements.append(p.get())
-    p_copy: LifoQueue = LifoQueue()
-    for i in range(len(elements) - 1, -1, -1):   # Recorrre la lista "elements" en sentido inverso.
+    p_copy: Pila = Pila()
+    for i in range(len(elements) - 1, -1, -1):      # Recorrre la lista "elements" en sentido inverso.
         p.put(elements[i])
         p_copy.put(elements[i])
     return p_copy
 
+# ¡MI forma de copiar una pila!:
+"""
+def copiaCola(p: Cola) -> Cola:     # Copia la cola p en una nueva cola (p2) y devuelve esta última.
+    lista_a_copiar: list = []
+    p2: Cola = Cola()               # Inicializo p2
+    while not p.empty():
+        lista_a_copiar.append(p.get())
+    for elemento in range(len(lista_a_copiar) - 1, -1, -1):
+    # for elemento in range(0, len(lista_a_copiar)):
+        p.put(lista_a_copiar[elemento])
+        p2.put(lista_a_copiar[elemento])
+    return p2
+"""
+
+
 ## TEST CASES:
 
 # Test case - [1,7,4,5]:
-
-"""
-pila: LifoQueue = LifoQueue()
+pila: Pila = Pila()
 pila.put(1)
 pila.put(7)
 pila.put(4)
 pila.put(5)
 
-buscarElMaximo(pila)
-print(buscarElMaximo1(pila), "[1,7,4,5]")
+print("ANTES:", list(pila.queue))
+
+# print(buscarElMaximo1(pila), "[1,7,4,5]")
+# print(list(pila.queue))
+# print(list(p.queue))
 print(buscarElMaximo2(pila), "[1,7,4,5]")
 
+print("DESPUÉS:", list(pila.queue))
 
 # Test case - [7,2,8,7]:
 pilaEj10: Pila = Pila()
@@ -322,10 +372,14 @@ p.put(7)
 p.put(2)
 p.put(8)
 p.put(7)
-print(buscar_el_maximo(p))
-# Debería devolver ** 8 **: funciona bien :]
-"""
 
+print("ANTES:", list(p.queue))
+
+# print(buscarElMaximo1(p), "[7,2,8,7]")
+print(buscarElMaximo2(p), "[7,2,8,7]")
+# Debería devolver ** 8 **: funciona bien :]
+
+print("DESPUÉS:", list(p.queue))
 
 
 ### Ejercicio 11:
@@ -358,6 +412,85 @@ print(esta_bien_balanceada("1 + (()())"))                    # Debería dar Fals
 
 
 
+
+### Ejercicio 12:
+
+# ADVERTENCIA: ¡Todavía no está fixeado para números de 2 o más cifras!
+def resuelvePostfix(formula: str) -> Pila:
+    operadores: list = ["+", "-", "*", "/"]
+    procesaCaracteres: Pila = Pila()               # Inicializa una pila para poder llevar anotadas las cuentas.
+    procesaOperaciones: Pila = Pila()              # Inicializa una pila para poder operar matemáticamente dentro de ella.
+    print("formula1:", formula)
+    formula = formula.replace(" ","")
+    print("formula2:", formula)
+    alumrof = formula[::-1]
+    for char in alumrof:
+        procesaCaracteres.put(char)
+    print("formula:", formula)
+    print("alumrof:", alumrof)
+    print("procesaCaracteres: ", list(procesaCaracteres.queue))
+    print("procesaOperaciones:", list(procesaOperaciones.queue))
+    while procesaCaracteres.qsize() >= 1:
+        caracter = procesaCaracteres.get()                    # token: "el caracter es un OPERADOR".
+        if caracter in operadores:
+            a = float(procesaOperaciones.get())
+            b = float(procesaOperaciones.get())
+            if caracter == "+":
+                resAtomico = b + a
+            if caracter == "-":
+                resAtomico = b - a
+            if caracter == "*":
+                resAtomico = b * a
+            if caracter == "/":
+                resAtomico = b / a
+            procesaCaracteres.put(resAtomico)
+        elif procesaCaracteres.qsize() == 0 and caracter not in operadores:
+            print("good ending:", list(procesaCaracteres.queue))
+            print("resultadooo:", caracter)
+            return caracter
+        else:                                   # token: "el caracter es un OPERANDO".
+            procesaOperaciones.put(caracter)
+    print("bad ending:", list(procesaCaracteres.queue))
+    return procesaCaracteres
+
+
+# Con la ayuda de Santiago Ibañez (¡este SÍ anda bien!):
+def ResuelvePostfix_Santi(formula: str) -> Queue:
+    res: str = formula                 # NO queremos modificar "formula" - ¡es de tipo ** IN **!
+    numeroTemp: str = ""
+    for i in res: 
+        if i.isnumeric():
+            numeroTemp += i
+            res = res.replace(i, "", 1)
+        if i == " " and numeroTemp != "":
+            Cola.put(numeroTemp)
+            numeroTemp: str = ""
+        if i == "+":
+            Cola.put(float(Cola.get())+float(Cola.get()))
+            print(list(Cola.queue))
+        if i == "-":
+            Cola.put(float(Cola.get())-float(Cola.get()))
+        if i == "*":
+            Cola.put(float(Cola.get())*float(Cola.get()))
+        if i == "/":
+            Cola.put(float(Cola.get())/float(Cola.get()))
+
+    return res
+
+# Test case (¡extraído del enunciado!)
+expresion = "3 4 + 5 * 2 -"
+resultado = resuelvePostfix(expresion)
+print(resultado) # Debería devolver 33.
+
+# Test case (inventado):
+expresion2 = ("71 2005 + 2 *")
+resultado2 = resuelvePostfix(expresion2)
+print(resultado2) # Debería devolver 4152.
+
+
+
+
+
 ##### COLAS #####
 
 from queue import Queue as Cola
@@ -369,9 +502,177 @@ c.empty()                    # Devuelve True si la pila "p" está vacia. Si no, 
 
 
 
-
 ### Ejercicio 13:
+from random import randint
 
+
+def generaNumerosRandom_COLA(n: int, desde: int, hasta: int) -> Cola:         # Donde todos los parámetros de entrada son de tipo *** IN ***
+    colaOutput: Cola = Cola()
+    while n > 0:
+        numeroAleatorio = randint(desde, hasta)
+        colaOutput.put(numeroAleatorio)
+        n -= 1
+    print(list(colaOutput.queue))
+    return colaOutput
+
+"""
+# Test case:
+print(generaNumerosRandom(10,1,100))
+print(generaNumerosRandom_COLA(10,1,100))
+"""
+
+# Comparando el Ejercicio 8 (pila/Pila) y el Ejercicio 13 (cola/FIFOqueue), ¿son... lo mismo? No lo sé... @.@
+
+
+
+
+
+
+### Ejercicio 14:
+def cantidad_elementos (c: Cola) -> int:           # Donde c es de tipo *** IN ***.
+    contador_de_elementos: int = 0
+    print("c: ", list(c.queue))
+    c_copia: Cola = Cola()                         # Inicializo una futura copia de c para restaurar c antes de terminar la función (recordemos que "c" debe ser de tipo *** IN ***).
+
+    while not c.empty():
+        c_copia.put(c.get())
+        contador_de_elementos += 1
+
+    print("c: ", list(c.queue))
+
+    while not c_copia.empty():
+        c.put(c_copia.get())
+
+
+
+    return contador_de_elementos
+
+
+"""
+# Test case:
+colaEj14: Cola = Cola()
+colaEj14.put(7)
+colaEj14.put(2)
+colaEj14.put(7)
+colaEj14.put("WYSI")
+colaEj14.put("WHEN YOU FUCKING SEE IT")
+
+print("ANTES:", list(colaEj14.queue))
+print("colaEj14 tiene", cantidad_elementos(colaEj14),"elementos.")
+print("DESPUÉS:", list(colaEj14.queue))
+"""
+
+
+
+
+
+### Ejercicio 15:
+
+# Forma 1 (la mía) (funciona solo con "c" como *** INOUT *** :c)
+"""
+def buscarElMaximo_COLA_1(c: Cola) -> int:                                    # Donde "p" es de tipo *** IN ***
+    lista_de_la_cola: list = []
+    maximo: int = 72727
+    while not c.empty():
+        numerito = c.get()
+        lista_de_la_cola.append(numerito)
+    # print(str(lista_de_la_pila))
+    lista_de_la_cola_COPIA: list = lista_de_la_cola.copy()
+    for elemento in lista_de_la_cola_COPIA:
+        c.put(elemento)
+    # print(list(p.queue))
+    maximo = max(lista_de_la_cola)
+    return maximo
+"""
+
+
+# Forma 2 (del profe):
+def buscarElMaximo_COLA_2 (c: Cola) -> int:
+    c_copia: Queue() = copiaCola(c)
+    while not c_copia.empty():        # p.qsize() > 1:
+        a = c_copia.get()
+        if c_copia.empty():
+            return a
+        b = c_copia.get()
+        if a > b:
+            c_copia.put(a)
+        else:
+            c_copia.put(b)
+    
+    # c_copia2: Pila() = ()
+
+
+    # while not c.empty():
+      #   c_copia2.put(c_copia.get())
+        
+
+
+    return c_copia.get()
+
+def copiaCola(p: Cola) -> Cola:     # Copia la cola p en una nueva cola (p2) y devuelve esta última.
+    lista_a_copiar: list = []
+    p2: Cola = Cola()               # Inicializo p2
+    while not p.empty():
+        lista_a_copiar.append(p.get())
+    for elemento in lista_a_copiar:
+    # for elemento in range(0, len(lista_a_copiar)):
+        p.put(elemento)
+        p2.put(elemento)
+    return p2
+
+
+
+###### Testeo de "copiaCola":
+copiameEsta: Cola = Cola()
+copiameEsta.put(1)
+copiameEsta.put(2)
+copiameEsta.put(3)
+
+print("\nEMPIEZA TESTEO\n")
+print("ANTES:", list(copiameEsta.queue))
+
+print(list(copiaCola(copiameEsta).queue))
+
+print("DESPUES: ", list(copiameEsta.queue))
+print("\nFIN TESTEO\n")
+
+
+
+## TEST CASES:
+
+# Test case - [1,7,4,5]:
+colaEj15: Cola = Cola()
+colaEj15.put(1)
+colaEj15.put(7)
+colaEj15.put(4)
+colaEj15.put(5)
+
+print("ANTES:", list(colaEj15.queue))
+
+# print(buscarElMaximo1(colaEj15), "[1,7,4,5]")
+print(buscarElMaximo_COLA_2(colaEj15), "[1,7,4,5]")
+
+print("DESPUÉS:", list(colaEj15.queue))
+
+# Test case - [7,2,8,7]:
+c15: Cola = Cola()
+c15.put(7)
+c15.put(2)
+c15.put(8)
+c15.put(7)
+
+print("ANTES:", list(c15.queue))
+
+# print(buscarElMaximo1(c15), "[7,2,8,7]")
+print(buscarElMaximo_COLA_2(c15), "[7,2,8,7]")
+# Debería devolver ** 8 **: funciona bien :]
+
+print("DESPUÉS:", list(c15.queue))
+
+print("gud ending          a")
+
+######### CONCLUSIÓN: La diferencia entre el ejercicio 10 y el ejercicio 15 es que...
+# ... para el ejercicio 15, hay que invertir la fila, porque "Queue" (la cola) es de tipo "FIFO" :]
 
 
 
@@ -458,6 +759,53 @@ print(bolillero)
 
 
 
+
+
+
+# Ejercicio 17:
+def n_pacientes_urgentes(c: Cola[(int, str, str)]) -> int:
+    c2: Cola[(int, str, str)] = copiaCola(c)           # Inicializa una copia de c (¡recordemos que "c" es de tipo *** IN *** !)
+    contador_de_urgentes: int = 0
+    
+    while not c2.empty():
+        paciente = c2.get()
+        if paciente[0] in [1,2,3]:
+            contador_de_urgentes += 1
+        
+        
+    return contador_de_urgentes
+
+"""
+# Test case (mío):
+colaPacientes: Cola[(int, str, str)] = Cola()
+colaPacientes.put((1, "pepe", "chotología"))
+colaPacientes.put((8, "alfredo", "pediatría"))
+colaPacientes.put((3, "tu vieja", "quimioterapia"))
+colaPacientes.put((2, "pepa", "ginecología"))
+
+print(list(colaPacientes.queue))
+
+print(n_pacientes_urgentes(colaPacientes))
+# (Debería dar 3)
+
+
+
+# Test case de "nardos322":
+pacientes = Queue()
+pacientes.put((1,'n','cirujia'))
+pacientes.put((6,'a','otorrino'))
+pacientes.put((4,'x','dermatologo'))
+pacientes.put((3,'y','oftalmologia'))
+pacientes.put((3,'y','oftalmologia'))
+print(list(pacientes.queue))
+print(n_pacientes_urgentes(pacientes))
+"""
+
+
+
+
+
+## Ejercicio 18.1: (En el cuadernillo de IP)
 ## Ejercicio 18.2:
 
 # str ---> Nombre y Apellido
@@ -565,4 +913,61 @@ def laPalabraMasFrecuente(nombre_archivo: str) -> str:
             return clave
     return # palabraMasFrecuente
 
-print(laPalabraMasFrecuente("PRII.txt"))
+# Test case:
+# print(laPalabraMasFrecuente("PRII.txt"))
+
+
+
+
+
+### Ejercicio 22:
+
+sitiosWebSacados: dict[str, Pila] = {}
+
+
+
+## Ejercicio 22.1:
+historiales: dict[str, Pila] = {}
+
+## Ejercicio 22.2:
+def visitar_sitio(historiales: dict[str, Pila], usuario: str, sitio: str) -> dict[str, Pila]:         # Devuelve un nuevo historial
+    nuevo_sitio: Pila = Pila()      # Inicializo una nueva pila (para luego ponerla en el diccionario).
+    nuevo_sitio.put(sitio)
+    historiales[usuario] = nuevo_sitio
+    # print(list(nuevo_sitio.queue))
+    return historiales
+
+## Ejercicio 22.3:
+def navegar_atras(historiales: dict[str, Pila], usuario: str) -> dict[str, Pila]:        # Saca el sitio web actual del historial.    
+    sacar = historiales.get(usuario)            # sacar es un "value" (la key es **usuario**)
+    sitiosWebSacados[usuario] = sacar
+    return
+
+## Ejercicio 22.4:
+def navegar_adelante(historiales: dict[str, Pila], usuario: str) -> dict[str, Pila]:        # Vuelve a agregar el sitio web sacado al historial.
+    poner = sitiosWebSacados.get(usuario)       # poner es un "value" (la key es **usuario**)
+    historiales[usuario] = poner
+    return
+
+
+# print(visitar_sitio({},'Guest', 'www.campusexactas.com.ar'))
+
+# Test cases (¡los que están en el enunciado!):
+# historiales = {}
+"""
+visitar_sitio(historiales, "Usuario1", "google.com")
+visitar_sitio(historiales, "Usuario1", "facebook.com")
+navegar_atras(historiales, "Usuario1")
+visitar_sitio(historiales, "Usuario2", "youtube.com")
+navegar_adelante(historiales, "Usuario1")
+
+print(historiales)
+print(sitiosWebSacados)
+
+def ver_diccionario(historial) -> None:
+    for usuario, paginas in historial.items():
+        print(f"Usuario: {usuario}, Historial: {paginas.queue}")
+
+print(ver_diccionario(historiales))
+print(ver_diccionario(sitiosWebSacados))
+"""
