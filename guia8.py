@@ -416,20 +416,20 @@ print(esta_bien_balanceada("1 + (()())"))                    # Debería dar Fals
 ### Ejercicio 12:
 
 # ADVERTENCIA: ¡Todavía no está fixeado para números de 2 o más cifras!
-def resuelvePostfix(formula: str) -> Pila:
+def resuelvePostfix(formula: str) -> float:
     operadores: list = ["+", "-", "*", "/"]
     procesaCaracteres: Pila = Pila()               # Inicializa una pila para poder llevar anotadas las cuentas.
     procesaOperaciones: Pila = Pila()              # Inicializa una pila para poder operar matemáticamente dentro de ella.
-    print("formula1:", formula)
+    # print("formula1:", formula)
     formula = formula.replace(" ","")
-    print("formula2:", formula)
+    # print("formula2:", formula)
     alumrof = formula[::-1]
     for char in alumrof:
         procesaCaracteres.put(char)
-    print("formula:", formula)
-    print("alumrof:", alumrof)
-    print("procesaCaracteres: ", list(procesaCaracteres.queue))
-    print("procesaOperaciones:", list(procesaOperaciones.queue))
+    # print("formula:", formula)
+    # print("alumrof:", alumrof)
+    # print("procesaCaracteres: ", list(procesaCaracteres.queue))
+    # print("procesaOperaciones:", list(procesaOperaciones.queue))
     while procesaCaracteres.qsize() >= 1:
         caracter = procesaCaracteres.get()                    # token: "el caracter es un OPERADOR".
         if caracter in operadores:
@@ -445,17 +445,24 @@ def resuelvePostfix(formula: str) -> Pila:
                 resAtomico = b / a
             procesaCaracteres.put(resAtomico)
         elif procesaCaracteres.qsize() == 0 and caracter not in operadores:
-            print("good ending:", list(procesaCaracteres.queue))
-            print("resultadooo:", caracter)
+            # print("good ending:", list(procesaCaracteres.queue))
+            # print("resultadooo:", caracter)
             return caracter
         else:                                   # token: "el caracter es un OPERANDO".
             procesaOperaciones.put(caracter)
-    print("bad ending:", list(procesaCaracteres.queue))
-    return procesaCaracteres
+    # print("bad ending:", list(procesaCaracteres.queue))
+    return procesaCaracteres.get()
+
+
+
 
 
 # Con la ayuda de Santiago Ibañez (¡este SÍ anda bien!):
-def ResuelvePostfix_Santi(formula: str) -> Queue:
+from queue import Queue as Cola
+
+def resuelvePostfix_Santi(formula: str) -> float:
+    cola: Cola = Cola()
+
     res: str = formula                 # NO queremos modificar "formula" - ¡es de tipo ** IN **!
     numeroTemp: str = ""
     for i in res: 
@@ -463,29 +470,36 @@ def ResuelvePostfix_Santi(formula: str) -> Queue:
             numeroTemp += i
             res = res.replace(i, "", 1)
         if i == " " and numeroTemp != "":
-            Cola.put(numeroTemp)
+            cola.put(numeroTemp)
             numeroTemp: str = ""
         if i == "+":
-            Cola.put(float(Cola.get())+float(Cola.get()))
-            print(list(Cola.queue))
+            cola.put(float(cola.get())+float(cola.get()))
+            print(list(cola.queue))
         if i == "-":
-            Cola.put(float(Cola.get())-float(Cola.get()))
+            cola.put(float(cola.get())-float(cola.get()))
         if i == "*":
-            Cola.put(float(Cola.get())*float(Cola.get()))
+            cola.put(float(cola.get())*float(cola.get()))
         if i == "/":
-            Cola.put(float(Cola.get())/float(Cola.get()))
+            cola.put(float(cola.get())/float(cola.get()))
 
-    return res
+    return cola.get()
 
 # Test case (¡extraído del enunciado!)
 expresion = "3 4 + 5 * 2 -"
 resultado = resuelvePostfix(expresion)
-print(resultado) # Debería devolver 33.
+resultado_s = resuelvePostfix_Santi(expresion)
+
+print("(" + expresion + ")      ", "Mi resolucion (usa 2 pilas):", resultado, "              (" + expresion + ")") # Debería devolver 33.
+print("(" + expresion + ")      ", "Resolucion de Santi (usa 1 cola):", resultado_s, "              (" + expresion + ")") # Debería devolver 33.
 
 # Test case (inventado):
-expresion2 = ("71 2005 + 2 *")
+expresion2 = "71 2005 + 2 *"
 resultado2 = resuelvePostfix(expresion2)
-print(resultado2) # Debería devolver 4152.
+print(expresion2)
+resultado2_s = resuelvePostfix_Santi(expresion2)
+
+print("(" + expresion2 + ")      ", "Mi resolucion (usa 2 pilas):", resultado2, "              (" + expresion2 + ")") # Debería devolver 4152.
+print("(" + expresion + ")      ", "Resolucion de Santi (usa 1 cola):", resultado2_s, "              (" + expresion2 + ")") # Debería devolver 4152.
 
 
 
@@ -493,7 +507,7 @@ print(resultado2) # Debería devolver 4152.
 
 ##### COLAS #####
 
-from queue import Queue as Cola
+# from queue import Queue as Cola
 
 c: Cola = Cola()             # Inicia la cola (constructor)
 c.put(1)                     # Encolar
