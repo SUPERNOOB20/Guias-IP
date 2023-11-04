@@ -457,7 +457,7 @@ def resuelvePostfix(formula: str) -> float:
 
 
 
-# Con la ayuda de Santiago Ibañez (¡este SÍ anda bien!):
+# Con la ayuda de Santiago Ibarra (¡este SÍ anda bien!):
 from queue import Queue as Cola
 
 def resuelvePostfix_Santi(formula: str) -> float:
