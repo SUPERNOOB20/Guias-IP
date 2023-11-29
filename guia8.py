@@ -170,7 +170,9 @@ def binarioLegible(archivo_binario: str) -> list:
 print(binarioLegible("Last Remote ~ Type A Personality.mp3"))
 print(binarioLegible("nolemretaw umieR.jpg"))
 print(binarioLegible("BillyTheBard11th - Excuse My Rudeness, But Could You Please RIP [Metal Cover] - copia.zip"))
+print(binarioLegible("東方紅魔郷"))
 """
+
 
 
 ### Ejercicio 7:
@@ -194,7 +196,7 @@ def promedio_estudiante1(legajo: str, LU: str) -> float:
 
 
 def promedio_estudiante2(archivo_notas: str, LU: str) -> float:
-    file_notas_alumnos: str = open(archivo_notas, "r")
+    file_notas_alumnos: str = open("C:/Users/SUPERNOOB20/Documents/UBA/FCEN/2023/IP_2/Practicas/Guia8/notas.csv", "r")
     notas_alumnos: list = []
     notas_del_alumno: list = []
     for linea in file_notas_alumnos:
@@ -457,7 +459,7 @@ def resuelvePostfix(formula: str) -> float:
 
 
 
-# Con la ayuda de Santiago Ibarra (¡este SÍ anda bien!):
+# Con la ayuda de Santiago Ibañez (¡este SÍ anda bien!):
 from queue import Queue as Cola
 
 def resuelvePostfix_Santi(formula: str) -> float:
@@ -897,7 +899,33 @@ def agruparPorLongitud(nombre_archivo: str) -> dict:
 # print(agruparPorLongitud("PRII.txt"))
 
 
+### Ejercicio 20 (NOTA: Este ejercicio está relacionado con el ejercicio 7):
 
+
+# Idea: hacer un diccionario "dict {str : list[float]}" con todas las notas y luego recorrer todas las keys y asignarles...
+# ... el promedio de cada list[float] :D
+
+def promedio_estudiante20(archivo_notas: str, LU: str) -> float:
+    file_notas_alumnos: str = open(archivo_notas, "r")
+    notas_alumnos: list = []
+    notas_del_alumno: list = []
+    diccionarioLista: dict[str, list[float]] = {}
+    diccionarioPromedios: dict[str, float] = {}
+    for linea in file_notas_alumnos:
+        # print("la linea es", linea)
+        spliteada = linea.strip("\n")
+        spliteada = spliteada.split(", ")
+        # while '' in spliteada:
+            # spliteada.remove('')
+        notas_alumnos.append(spliteada[len(spliteada) - 1])
+        if LU in linea:
+            notas_del_alumno.append(spliteada[len(spliteada) - 1])
+    print("las notas son", str(notas_alumnos))
+    print("las notas del alumno", LU, "son", str(notas_del_alumno))         
+    return
+
+
+print(promedio_estudiante2("notas.csv", "937/21"))
 
 
 ### Ejercicio 21:
@@ -985,3 +1013,88 @@ def ver_diccionario(historial) -> None:
 print(ver_diccionario(historiales))
 print(ver_diccionario(sitiosWebSacados))
 """
+
+
+
+
+
+# Ejercicio 23.1:
+def agregar_producto(inventario: dict[str, dict[float, int]], nombre: str, precio: float, cantidad: int):    # Requiere: "nombre" no está en "inventario"
+    print(nombre, cantidad)
+    productos: dict[float,int] = {}       # Inicializo el diccionario que estará como "value"
+    productos[precio] = cantidad
+    inventario[nombre] = productos
+    productos = {}                        # Vacío el diccionario que usé como "value"
+    print(nombre, cantidad)
+    return
+
+# Ejercicio 23.2:
+def actualizar_stock(inventario, nombre, cantidad):
+    for key in inventario:
+        if key == nombre:
+            key_previa = inventario[key]
+            for stock in key_previa:
+                key_previa[stock] = cantidad
+    
+    return
+
+# Ejercicio 23.3:
+def actualizar_precios(inventario, nombre, precio):
+    # print("inventariooo:", inventario)
+    for key in inventario:
+        if key == nombre:
+            key_previa = inventario[key]
+            print("inventario[key] =", inventario[key])
+            for k, v in key_previa.items():
+                key_previa.clear()
+                key_previa[precio] = v
+            print(key_previa)
+    # print("inventariooo:", inventario)
+    return
+
+# Ejercicio 23.4:
+"""
+def calcular_valor_inventario_forma1(inventario):
+    valorTotal: float = 0.0
+    for key in inventario:
+        valorTotal += (list(inventario[key].items()))[0][0] * (list(inventario[key].items()))[0][1]
+            
+    return valorTotal
+"""
+
+def calcular_valor_inventario(inventario):
+    valorTotal: float = 0.0
+    for key in inventario:
+        for k, v in inventario[key].items():
+            valorTotal += k * v
+            
+    return valorTotal
+
+
+
+##### TEST CASE:
+
+inventario = {}
+# print(inventario)
+agregar_producto(inventario, "Camisa", 20.0, 50)
+agregar_producto(inventario, "Pantalón", 30.0, 30)
+# print("inventario viejo:", inventario)
+actualizar_stock(inventario, "Camisa", 10)
+# print("inventario nuevo:", inventario)
+valor_total = calcular_valor_inventario(inventario)
+
+print("Valor total del inventario:", valor_total)           # Debería imprimir 1300.0
+
+actualizar_precios(inventario, "Camisa", 50.0)
+
+valor_total = calcular_valor_inventario(inventario)
+print("Valor total del inventario:", valor_total)           # Debería imprimir... ¿1800.0?
+
+#####
+
+
+
+
+
+
+print("Llegamos al final del código :]")
